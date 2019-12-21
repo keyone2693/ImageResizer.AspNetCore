@@ -4,7 +4,7 @@
     <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <ApplicationIcon>ImageResizing.ico</ApplicationIcon>
-    <Version>1.8.7</Version>
+    <Version>1.8.9</Version>
     <Authors>Keyvan Abdollahzadeh</Authors>
     <Description>ImageResizing.AspCore is the image server for ASP.NET CORE. It can be dropped into existing apps and works, enable fast and adaptive websites, and improve your sales by reducing page load time.
 
@@ -16,6 +16,12 @@ Enjoy :)</Description>
 </PackageReleaseNotes>
     <StartupObject />
     <PackageId>ImageResizing.AspCore</PackageId>
+    <PackageProjectUrl>https://github.com/keyone2693/ImageResizing.AspCore</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/keyone2693/ImageResizing.AspCore</RepositoryUrl>
+    <RepositoryType>public</RepositoryType>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>ImageResizing.png</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +31,17 @@ Enjoy :)</Description>
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.0" />
     <PackageReference Include="SkiaSharp" Version="1.68.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="ImageResizing.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
