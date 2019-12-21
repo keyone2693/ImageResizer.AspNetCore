@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <ApplicationIcon>ImageResizing.ico</ApplicationIcon>
+    <Version>1.8.7</Version>
+    <Authors>Keyvan Abdollahzadeh</Authors>
+    <Description>ImageResizing.AspCore is the image server for ASP.NET CORE. It can be dropped into existing apps and works, enable fast and adaptive websites, and improve your sales by reducing page load time.
+
+it can do:
+Resize, Crop, Padding, Max, Stretch, Change Quality, Change Format, ...
+
+Enjoy :)</Description>
+    <PackageReleaseNotes>ALL main functionality added :)
+</PackageReleaseNotes>
+    <StartupObject />
+    <PackageId>ImageResizing.AspCore</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.0" />
+    <PackageReference Include="SkiaSharp" Version="1.68.1.1" />
+  </ItemGroup>
+
+</Project>
