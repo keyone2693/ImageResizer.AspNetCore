@@ -1,2 +1,2 @@
-# ImageResizing.AspCore
+# ImageResizer.AspNetCore
 Under the way :)
