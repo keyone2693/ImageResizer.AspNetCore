@@ -10,9 +10,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ImageResizing.AspCore
+namespace ImageResizer.AspNetCore
 {
-    public class ImageResizingAspCoreMiddleware
+    public class ImageResizerMiddleware
     {
         struct ResizeParams
         {
@@ -41,7 +41,7 @@ namespace ImageResizing.AspCore
         }
 
         private readonly RequestDelegate _req;
-        private readonly ILogger<ImageResizingAspCoreMiddleware> _logger;
+        private readonly ILogger<ImageResizerMiddleware> _logger;
         private readonly IHostingEnvironment _env;
         private readonly IMemoryCache _memoryCache;
 
@@ -51,7 +51,7 @@ namespace ImageResizing.AspCore
             ".jpeg"
         };
 
-        public ImageResizingAspCoreMiddleware(RequestDelegate req, IHostingEnvironment env, ILogger<ImageResizingAspCoreMiddleware> logger, IMemoryCache memoryCache)
+        public ImageResizerMiddleware(RequestDelegate req, IHostingEnvironment env, ILogger<ImageResizerMiddleware> logger, IMemoryCache memoryCache)
         {
             _req = req;
             _env = env;

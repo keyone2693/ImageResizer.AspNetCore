@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "ImageResizer.AspNetCore": {
+      "commandName": "Project"
+    }
+  }
+}

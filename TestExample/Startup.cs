@@ -1,4 +1,4 @@
-using ImageResizing.AspCore.Helpers;
+using ImageResizer.AspNetCore.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,18 +22,14 @@ namespace TestExample
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
-
         public IConfigurationRoot Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
             services.AddControllersWithViews();
-            services.AddImageResizingAspCore();
+            //AddImageResizer
+            services.AddImageResizer();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -46,8 +42,10 @@ namespace TestExample
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-            }  
-            app.UseImageResizingAspCore();
+            }
+            //UseImageResizer
+            app.UseImageResizer();
+
             app.UseStaticFiles();
             app.UseRouting();
             app.UseEndpoints(endpoints =>

@@ -4,9 +4,9 @@
     <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <ApplicationIcon>ImageResizing.ico</ApplicationIcon>
-    <Version>1.8.9</Version>
+    <Version>1.7.4</Version>
     <Authors>Keyvan Abdollahzadeh</Authors>
-    <Description>ImageResizing.AspCore is the image server for ASP.NET CORE. It can be dropped into existing apps and works, enable fast and adaptive websites, and improve your sales by reducing page load time.
+    <Description>ImageResizer.AspNetCore is the image server for ASP.NET CORE. It can be dropped into existing apps and works, enable fast and adaptive websites, and improve your sales by reducing page load time.
 
 it can do:
 Resize, Crop, Padding, Max, Stretch, Change Quality, Change Format, ...
@@ -15,13 +15,16 @@ Enjoy :)</Description>
     <PackageReleaseNotes>ALL main functionality added :)
 </PackageReleaseNotes>
     <StartupObject />
-    <PackageId>ImageResizing.AspCore</PackageId>
-    <PackageProjectUrl>https://github.com/keyone2693/ImageResizing.AspCore</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/keyone2693/ImageResizing.AspCore</RepositoryUrl>
+    <PackageId>ImageResizer.AspNetCore</PackageId>
+    <PackageProjectUrl>https://github.com/keyone2693/ImageResizer.AspNetCore</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/keyone2693/ImageResizer.AspNetCore</RepositoryUrl>
     <RepositoryType>public</RepositoryType>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>ImageResizing.png</PackageIcon>
     <PackageIconUrl />
+    <Product>ImageResizer.AspNetCore</Product>
+    <AssemblyName>ImageResizer.AspNetCore</AssemblyName>
+    <RootNamespace>ImageResizer.AspNetCore</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
