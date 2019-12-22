@@ -23,7 +23,7 @@ except for disk catch and watermark which will be added soon
 
 ## Overview
 
-## it's for Dotnet core only
+## it's for DoteNetCore only
 aspnetcore 2.2 +
 
 ## Easy to install
