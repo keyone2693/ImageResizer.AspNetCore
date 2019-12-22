@@ -60,6 +60,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 ```
 and you can use it in your client-side(html,css,ts,...) just like below:
 
+Simple Is That Enjoy :))
 
 ```html
 <img src="~/images/mardinCity.jpg?w=200" />
@@ -74,7 +75,6 @@ and you can use it in your client-side(html,css,ts,...) just like below:
 <img src="~/images/mardinCity.jpg?autorotate=true" />
 <img src="~/images/mardinCity.jpg?autorotate=false" />
 <img src="~/images/mardinCity.jpg?quality=5" />
-<div class="alert alert-success" role="alert">?quality=20</div>
 <img src="~/images/mardinCity.jpg?w=400&quality=80" />
 
 ```
