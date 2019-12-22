@@ -1,5 +1,4 @@
 # ImageResizer.AspNetCore
-Under the way :)
 
 ## Development 
 
