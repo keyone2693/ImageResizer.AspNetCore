@@ -12,25 +12,28 @@ Under the way :)
 [![GitHub stars](https://img.shields.io/github/stars/keyone2693/ImageResizer.AspNetCore.svg?maxAge=25920?style=plastic)](https://github.com/keyone2693/ImageResizer.AspNetCore/stargazers)
 [![GitHub license](https://img.shields.io/github/license/keyone2693/ImageResizer.AspNetCore.svg?maxAge=25920?style=plastic)](https://github.com/keyone2693/ImageResizer.AspNetCore/blob/master/LICENSE)
 
+
+### You Can see the examples here: [Demo](http://imageresizer.aspnetcore.keyone2693.ir/)
+
 #### Current version: 1.7.x [Stable]
 In this version:
-all main functinalety working
-except disk catch and water mark wich will be added soon
+all main functionality working
+except for disk catch and watermark which will be added soon
 
 ## Overview
 
-## its for dotnet core only
+## it's for Dotnet core only
 aspnetcore 2.2 +
 
 ## Easy to install
-Use library as dll, reference from [nuget](https://www.nuget.org/packages/ImageResizer.AspNetCore/)
-or just use this in package manager console
+Use the library as dll, reference from [nuget](https://www.nuget.org/packages/ImageResizer.AspNetCore/)
+or use this in package manager console
 ```c#
 Install-Package ImageResizer.AspNetCore
 ```
 # Wiki
 
-for using these awsom library you only need do two thigs
+for using this awesome library, you only need to do two things
 first:
 
 add this line of code to your Startup.cs
@@ -44,17 +47,8 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-and :
+And :
 
-
-```c#
-public void ConfigureServices(IServiceCollection services)
-{
-  //...
-  services.AddImageResizer();
-  //...
-}
-```
 ```c#
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 {
@@ -63,3 +57,24 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
   //...
 }
 ```
+and you can use it in your client-side(html,css,ts,...) just like below:
+
+
+```html
+<img src="~/images/mardinCity.jpg?w=200" />
+<img src="~/images/mardinCity.jpg?h=300" />
+<img src="~/images/mardinCity.jpg?format=png" />
+<img src="~/images/mardinCity.jpg?format=jpg" />
+<img src="~/images/mardinCity.jpg?format=jpeg" />
+<img src="~/images/mardinCity.jpg?w=100&h=200&mode=pad" />
+<img src="~/images/mardinCity.jpg?w=100&h=200&mode=max" />
+<img src="~/images/mardinCity.jpg?w=100&h=200&mode=crop" />
+<img src="~/images/mardinCity.jpg?w=100&h=200&mode=stretch" />
+<img src="~/images/mardinCity.jpg?autorotate=true" />
+<img src="~/images/mardinCity.jpg?autorotate=false" />
+<img src="~/images/mardinCity.jpg?quality=5" />
+<div class="alert alert-success" role="alert">?quality=20</div>
+<img src="~/images/mardinCity.jpg?w=400&quality=80" />
+
+```
+
