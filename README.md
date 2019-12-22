@@ -2,7 +2,6 @@
 
 ## Development 
 
-### Before posting new issues: [Test samples](https://github.com/keyone2693/ImageResizer.AspNetCore/tree/master/TestExample)
 
 
 [![Build status](https://img.shields.io/appveyor/ci/keyone2693/imageresizer-aspnetcore.svg)](https://ci.appveyor.com/project/keyone2693/imageresizer-aspnetcore)
@@ -13,6 +12,9 @@
 
 
 ### You Can see the examples here: [Demo](http://imageresizer.aspnetcore.keyone2693.ir/)
+
+### Before posting new issues: [Test samples](https://github.com/keyone2693/ImageResizer.AspNetCore/tree/master/TestExample)
+
 
 #### Current version: 1.7.x [Stable]
 In this version:
