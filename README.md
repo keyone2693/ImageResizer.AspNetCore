@@ -48,7 +48,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-And :
+Then this one :
 
 ```c#
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
