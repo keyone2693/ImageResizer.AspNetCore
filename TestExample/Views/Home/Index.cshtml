@@ -5,142 +5,476 @@
     .alert {
         margin: 20px 0 0 !important;
     }
-    .col-md-12 , alert{
+
+    .col-md-12, alert {
         text-align: center;
     }
 </style>
 <div class="row">
-    <div class="col-md-12">
-        <div class="alert alert-success" role="alert">?w=200</div>
-    </div>
-    <div class="col-md-12">
-        <img src="~/images/mardinCity.jpg?w=200" />
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="alert alert-danger" role="alert">?h=300</div>
-    </div>
-    <div class="col-md-12">
-        <img src="~/images/mardinCity.jpg?h=300" />
+    <div class="col-md-12" style="background: #fff; padding: 7px 10px;
+        border-radius: 50px;">
+        <h2>#Demo</h2>
+        <p>The example for all functionality will be added here</p>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-12">
-        <div class="alert alert-success" role="alert">?format=png</div>
+    <div class="col-md-12" style="margin-top:15px">
+        <h2 style="color:#fff">#New Features</h2>
+        <p style="color:#ededed">Watermark ss a text just added :)</p>
     </div>
-    <div class="col-md-12">
-        <img src="~/images/mardinCity.jpg?format=png" />
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="alert alert-success" style="text-align:center">example.com/kurdcity.jpg<strong>?wmtext=1</strong></div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-1-1">
+            See Example
+        </button>
+        <div class="modal fade" id="modal-1-1">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">?wmtext=1</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="~/images/kurdcity.jpg?w=400&wmtext=1" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="alert alert-success" style="text-align:center">example.com/kurdcity.jpg<strong>?wmtext=2</strong></div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-1-2">
+            See Example
+        </button>
+        <div class="modal fade" id="modal-1-2">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">?wmtext=2</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="~/images/kurdcity1.jpg?w=390&wmtext=2" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="alert alert-success" style="text-align:center">example.com/kurdcity.jpg<strong>?wmtext=3</strong></div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-1-3">
+            See Example
+        </button>
+        <div class="modal fade" id="modal-1-3">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">?wmtext=3</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="~/images/kurdcity2.jpg?w=380&wmtext=3" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="alert alert-success" style="text-align:center">example.com/kurdcity.jpg<strong>?wmtext=4</strong></div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-1-4">
+            See Example
+        </button>
+        <div class="modal fade" id="modal-1-4">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">?wmtext=4</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="~/images/kurdcity3.jpg?w=370&wmtext=4" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12" style="margin-top:15px">
+        <h2 style="color:#fff">#Other Functionality</h2>
+        <p style="color:#ededed">Will be improved if needed</p>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-12">
-        <div class="alert alert-danger" role="alert">?format=jpg</div>
-    </div>
-    <div class="col-md-12">
-        <img src="~/images/mardinCity.jpg?format=jpg" />
+    <div class="col-md-6">
+        <div class="alert alert-success" style="text-align:center">example.com/kurdcity.jpg<strong>?w=200</strong></div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-1">
+            See Example
+        </button>
+        <div class="modal fade" id="modal-1">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">?w=200</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="~/images/kurdcity.jpg?w=200" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="alert alert-danger" style="text-align:center">example.com/kurdcity.jpg<strong>?h=300</strong></div>
+        <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-2">
+            See Example
+        </button>
+        <div class="modal fade" id="modal-2">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">?h=300</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="~/images/kurdcity.jpg?h=300" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="alert alert-success" style="text-align:center">example.com/kurdcity.jpg<strong>?format=png</strong></div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-3">
+            See Example
+        </button>
+        <div class="modal fade" id="modal-3">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">?format=png</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="~/images/kurdcity.jpg?format=png" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="alert alert-danger" style="text-align:center">example.com/kurdcity.jpg<strong>?format=jpg</strong></div>
+        <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-4">
+            See Example
+        </button>
+        <div class="modal fade" id="modal-4">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">?format=jpg</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="~/images/kurdcity.jpg?format=jpg" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-12">
-        <div class="alert alert-success" role="alert">?format=jpeg</div>
-    </div>
-    <div class="col-md-12">
-        <img src="~/images/mardinCity.jpg?format=jpeg" />
+    <div class="col-md-6">
+        <div class="alert alert-success" style="text-align:center">example.com/kurdcity.jpg<strong>?format=jpeg</strong></div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-5">
+            See Example
+        </button>
+        <div class="modal fade" id="modal-5">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">?format=jpeg</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="~/images/kurdcity.jpg?format=jpeg" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="alert alert-danger" style="text-align:center">example.com/kurdcity.jpg<strong>?w=100&h=200&mode=pad</strong></div>
+        <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-6">
+            See Example
+        </button>
+        <div class="modal fade" id="modal-6">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">?w=100&h=200&mode=pad</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="~/images/kurdcity.jpg?w=100&h=200&mode=pad" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-12">
-        <div class="alert alert-danger" role="alert">?w=100&h=200&mode=padding</div>
-    </div>
-    <div class="col-md-12">
-        <img src="~/images/mardinCity.jpg?w=100&h=200&mode=pad" />
+    <div class="col-md-6">
+        <div class="alert alert-success" style="text-align:center">example.com/kurdcity.jpg<strong>?w=100&h=200&mode=max</strong></div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-7">
+            See Example
+        </button>
+        <div class="modal fade" id="modal-7">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">?w=100&h=200&mode=max</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="~/images/kurdcity.jpg?w=100&h=200&mode=max" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="alert alert-danger" style="text-align:center">example.com/kurdcity.jpg<strong>?w=100&h=200&mode=crop</strong></div>
+        <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-8">
+            See Example
+        </button>
+        <div class="modal fade" id="modal-8">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">?w=100&h=200&mode=crop</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="~/images/kurdcity.jpg?w=100&h=200&mode=crop" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-12">
-        <div class="alert alert-success" role="alert">?w=100&h=200&mode=max</div>
-    </div>
-    <div class="col-md-12">
-        <img src="~/images/mardinCity.jpg?w=100&h=200&mode=max" />
+    <div class="col-md-6">
+        <div class="alert alert-success" style="text-align:center">example.com/kurdcity.jpg<strong>?w=100&h=200&mode=stretch</strong></div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-9">
+            See Example
+        </button>
+        <div class="modal fade" id="modal-9">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">?w=100&h=200&mode=stretch</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="~/images/kurdcity.jpg?w=100&h=200&mode=stretch" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="alert alert-danger" style="text-align:center">example.com/kurdcity.jpg<strong>?autorotate=true</strong></div>
+        <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-10">
+            See Example
+        </button>
+        <div class="modal fade" id="modal-10">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">?autorotate=true</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="~/images/kurdcity.jpg?autorotate=true" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-12">
-        <div class="alert alert-danger" role="alert">?w=100&h=200&mode=crop</div>
-    </div>
-    <div class="col-md-12">
-        <img src="~/images/mardinCity.jpg?w=100&h=200&mode=crop" />
+    <div class="col-md-6">
+        <div class="alert alert-success" style="text-align:center">example.com/kurdcity.jpg<strong>?autorotate=false</strong></div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-11">
+            See Example
+        </button>
+        <div class="modal fade" id="modal-11">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">?autorotate=false</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="~/images/kurdcity.jpg?autorotate=false" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+
+        <div class="alert alert-danger" style="text-align:center">example.com/kurdcity.jpg<strong>?quality=5</strong></div>
+        <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-12">
+            See Example
+        </button>
+        <div class="modal fade" id="modal-12">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">?quality=5</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="~/images/kurdcity.jpg?quality=5" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-12">
-        <div class="alert alert-success" role="alert">?w=100&h=200&mode=stretch</div>
-    </div>
-    <div class="col-md-12">
-        <img src="~/images/mardinCity.jpg?w=100&h=200&mode=stretch" />
+    <div class="col-md-6">
+        <div class="alert alert-success" style="text-align:center">example.com/kurdcity.jpg<strong>?quality=20</strong></div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-13">
+            See Example
+        </button>
+        <div class="modal fade" id="modal-13">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">?quality=20</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="~/images/kurdcity.jpg?quality=20" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="alert alert-danger" style="text-align:center">example.com/kurdcity.jpg<strong>?w=400&quality=80</strong></div>
+        <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-14">
+            See Example
+        </button>
+        <div class="modal fade" id="modal-14">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">?w=400&quality=80</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="~/images/kurdcity.jpg?w=400&quality=80" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="alert alert-danger" role="alert">?autorotate=true</div>
-    </div>
-    <div class="col-md-12">
-        <img src="~/images/mardinCity.jpg?autorotate=true" />
 
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="alert alert-success" role="alert">?autorotate=false</div>
-    </div>
-    <div class="col-md-12">
-        <img src="~/images/mardinCity.jpg?autorotate=false" />
 
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="alert alert-danger" role="alert">?quality=5</div>
-    </div>
-    <div class="col-md-12">
-        <img src="~/images/mardinCity.jpg?quality=5" />
 
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="alert alert-success" role="alert">?quality=20</div>
-    </div>
-    <div class="col-md-12">
-        <img src="~/images/mardinCity.jpg?quality=20" />
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="alert alert-danger" role="alert">?w=400&quality=80</div>
-    </div>
-    <div class="col-md-12">
-        <img src="~/images/mardinCity.jpg?w=400&quality=80" />
-    </div>
-</div>
 
 

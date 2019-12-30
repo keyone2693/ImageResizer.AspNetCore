@@ -1,0 +1,70 @@
+﻿{
+  "WatermarkTextList": [
+    {
+      "Key": 1,
+      "Value": "Hello Word 1",
+      "PositionMeasureType": 2,
+      "X": 50,
+      "Y": 20,
+      "IsVerticalText": false,
+      "Color": "#ff3838",
+      "Type": 1,
+      "StrokeWidth": "0",
+      "Quality": 4,
+      "TextSize": 25,
+      "TextAlign": 3,
+      "TextSkewX": 0,
+      "IsAntialias": true
+    },
+    {
+      "Key": 3,
+      "Value": "Hello Word 3",
+      "PositionMeasureType": 2,
+      "X": 50,
+      "Y": 20,
+      "IsVerticalText": true,
+      "Color": "#ff3838",
+      "Type": 1,
+      "StrokeWidth": "0",
+      "Quality": 4,
+      "TextSize": 45,
+      "TextAlign": 3,
+      "TextSkewX": 1,
+      "IsAntialias": true
+    },
+    {
+      "Key": 2,
+      "Value": "Hello Word 2",
+      "PositionMeasureType": 2,
+      "X": 50,
+      "Y": 20,
+      "IsVerticalText": false,
+      "Color": "#ff3838",
+      "Type": 2,
+      "StrokeWidth": "2",
+      "Quality": 4,
+      "TextSize": 45,
+      "TextAlign": 3,
+      "TextSkewX": 0,
+      "IsAntialias": true
+    },
+
+    {
+      "Key": 4,
+      "Value": "Hello Word 4",
+      "PositionMeasureType": 2,
+      "X": 50,
+      "Y": 20,
+      "IsVerticalText": true,
+      "Color": "#ff3838",
+      "Type": 3,
+      "StrokeWidth": "2",
+      "Quality": 4,
+      "TextSize": 45,
+      "TextAlign": 3,
+      "TextSkewX": 0,
+      "IsAntialias": true
+    }
+  ],
+  "WatermarkImageList": []
+}

@@ -7,43 +7,25 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
+using ImageResizer.AspNetCore.Helpers;
 using System.Threading.Tasks;
+using ImageResizer.AspNetCore.Funcs;
+using Newtonsoft.Json;
+using ImageResizer.AspNetCore.Models;
+using System.Threading;
 
 namespace ImageResizer.AspNetCore
 {
     public class ImageResizerMiddleware
     {
-        struct ResizeParams
-        {
-            public bool hasParams;
-            public int w;
-            public int h;
-            public bool autorotate;
-            public int quality; // 0 - 100
-            public string format; // png, jpg, jpeg
-            public string mode; // pad, max, crop, stretch
 
-            public static string[] modes = new string[] { "pad", "max", "crop", "stretch" };
-
-            public override string ToString()
-            {
-                var sb = new StringBuilder();
-                sb.Append($"w: {w}, ");
-                sb.Append($"h: {h}, ");
-                sb.Append($"autorotate: {autorotate}, ");
-                sb.Append($"quality: {quality}, ");
-                sb.Append($"format: {format}, ");
-                sb.Append($"mode: {mode}");
-
-                return sb.ToString();
-            }
-        }
 
         private readonly RequestDelegate _req;
         private readonly ILogger<ImageResizerMiddleware> _logger;
         private readonly IHostingEnvironment _env;
         private readonly IMemoryCache _memoryCache;
+        private WatermarkTextModel watermarkText;
+        private WatermarkImageModel watermarkImage;
 
         private static readonly string[] suffixes = new string[] {
             ".png",
@@ -57,6 +39,7 @@ namespace ImageResizer.AspNetCore
             _env = env;
             _logger = logger;
             _memoryCache = memoryCache;
+
         }
 
         public async Task Invoke(HttpContext context)
@@ -77,7 +60,33 @@ namespace ImageResizer.AspNetCore
                 await _req.Invoke(context);
                 return;
             }
-         
+            var imageResizerJsonPath = Path.Combine(_env.WebRootPath, "ImageResizerJson.json");
+
+            var watermarks = new WatermarksModel();
+
+            using (StreamReader r = new StreamReader(imageResizerJsonPath))
+            {
+                string json = r.ReadToEnd();
+
+                watermarks = JsonConvert.DeserializeObject<WatermarksModel>(json);
+
+            }
+            if (resizeParams.wmtext != 0)
+            {
+                if (watermarks.WatermarkTextList.Any())
+                {
+                    watermarkText = watermarks.WatermarkTextList.FirstOrDefault(p => p.Key == resizeParams.wmtext);
+                }
+            }
+            if (resizeParams.wmimage != 0)
+            {
+                if (watermarks.WatermarkImageList.Any())
+                {
+                    watermarkImage = watermarks.WatermarkImageList.FirstOrDefault(p => p.Key == resizeParams.wmimage);
+                }
+            }
+
+
             // if we got this far, resize it
             _logger.LogInformation($"Resizing {path.Value} with params {resizeParams}");
 
@@ -105,7 +114,6 @@ namespace ImageResizer.AspNetCore
             imageData.Dispose();
 
         }
-
         private SKData GetImageData(string imagePath, ResizeParams resizeParams, DateTime lastWriteTimeUtc)
         {
             // check cache and return if cached
@@ -117,7 +125,7 @@ namespace ImageResizer.AspNetCore
 
             SKData imageData;
             byte[] imageBytes;
-            bool isCached = _memoryCache.TryGetValue<byte[]>(cacheKey, out imageBytes);
+           bool isCached = _memoryCache.TryGetValue<byte[]>(cacheKey, out imageBytes);
             if (isCached)
             {
                 _logger.LogInformation("Serving from cache");
@@ -138,7 +146,7 @@ namespace ImageResizer.AspNetCore
 
             // if autorotate = true, and origin isn't correct for the rotation, rotate it
             if (resizeParams.autorotate && origin != SKEncodedOrigin.TopLeft)
-                bitmap = RotateAndFlip(bitmap, origin);
+                bitmap = RotateAndFlip.RotateAndFlipImage(bitmap, origin);
 
             // if either w or h is 0, set it based on ratio of original image
             if (resizeParams.h == 0)
@@ -148,7 +156,7 @@ namespace ImageResizer.AspNetCore
 
             // if we need to crop, crop the original before resizing
             if (resizeParams.mode == "crop")
-                bitmap = Crop(bitmap, resizeParams);
+                bitmap = Crop.CropImage(bitmap, resizeParams);
 
             // store padded height and width
             var paddedHeight = resizeParams.h;
@@ -172,7 +180,21 @@ namespace ImageResizer.AspNetCore
 
             // optionally pad
             if (resizeParams.mode == "pad")
-                resizedBitmap = Padding(resizedBitmap, paddedWidth, paddedHeight, resizeParams.format != "png");
+                resizedBitmap = Padding.PaddingImage(resizedBitmap, paddedWidth, paddedHeight, resizeParams.format != "png");
+
+            // watermarkText
+            if (resizeParams.wmtext != 0)
+            {
+                if (watermarkText != null)
+                    resizedBitmap = Watermark.WatermarkText(resizedBitmap, resizeParams, watermarkText);
+            }
+            // watermarkImage
+            if (resizeParams.wmimage != 0)
+            {
+                if (watermarkImage != null)
+                    resizedBitmap = Watermark.WatermarkImage(resizedBitmap, resizeParams, watermarkImage);
+            }
+
 
             // encode
             var resizedImage = SKImage.FromBitmap(resizedBitmap);
@@ -188,88 +210,6 @@ namespace ImageResizer.AspNetCore
             resizedBitmap.Dispose();
 
             return imageData;
-        }
-
-        private SKBitmap RotateAndFlip(SKBitmap original, SKEncodedOrigin origin)
-        {
-            // these are the origins that represent a 90 degree turn in some fashion
-            var differentOrientations = new SKEncodedOrigin[]
-            {
-                SKEncodedOrigin.LeftBottom,
-                SKEncodedOrigin.LeftTop,
-                SKEncodedOrigin.RightBottom,
-                SKEncodedOrigin.RightTop
-            };
-
-            // check if we need to turn the image
-            bool isDifferentOrientation = differentOrientations.Any(o => o == origin);
-
-            // define new width/height
-            var width = isDifferentOrientation ? original.Height : original.Width;
-            var height = isDifferentOrientation ? original.Width : original.Height;
-
-            var bitmap = new SKBitmap(width, height, original.AlphaType == SKAlphaType.Opaque);
-
-            // todo: the stuff in this switch statement should be rewritten to use pointers
-            switch (origin)
-            {
-                case SKEncodedOrigin.LeftBottom:
-
-                    for (var x = 0; x < original.Width; x++)
-                        for (var y = 0; y < original.Height; y++)
-                            bitmap.SetPixel(y, original.Width - 1 - x, original.GetPixel(x, y));
-                    break;
-
-                case SKEncodedOrigin.RightTop:
-
-                    for (var x = 0; x < original.Width; x++)
-                        for (var y = 0; y < original.Height; y++)
-                            bitmap.SetPixel(original.Height - 1 - y, x, original.GetPixel(x, y));
-                    break;
-
-                case SKEncodedOrigin.RightBottom:
-
-                    for (var x = 0; x < original.Width; x++)
-                        for (var y = 0; y < original.Height; y++)
-                            bitmap.SetPixel(original.Height - 1 - y, original.Width - 1 - x, original.GetPixel(x, y));
-
-                    break;
-
-                case SKEncodedOrigin.LeftTop:
-
-                    for (var x = 0; x < original.Width; x++)
-                        for (var y = 0; y < original.Height; y++)
-                            bitmap.SetPixel(y, x, original.GetPixel(x, y));
-                    break;
-
-                case SKEncodedOrigin.BottomLeft:
-
-                    for (var x = 0; x < original.Width; x++)
-                        for (var y = 0; y < original.Height; y++)
-                            bitmap.SetPixel(x, original.Height - 1 - y, original.GetPixel(x, y));
-                    break;
-
-                case SKEncodedOrigin.BottomRight:
-
-                    for (var x = 0; x < original.Width; x++)
-                        for (var y = 0; y < original.Height; y++)
-                            bitmap.SetPixel(original.Width - 1 - x, original.Height - 1 - y, original.GetPixel(x, y));
-                    break;
-
-                case SKEncodedOrigin.TopRight:
-
-                    for (var x = 0; x < original.Width; x++)
-                        for (var y = 0; y < original.Height; y++)
-                            bitmap.SetPixel(original.Width - 1 - x, y, original.GetPixel(x, y));
-                    break;
-
-            }
-
-            original.Dispose();
-
-            return bitmap;
-
-
         }
 
         private SKBitmap LoadBitmap(Stream stream, out SKEncodedOrigin origin)
@@ -294,66 +234,6 @@ namespace ImageResizer.AspNetCore
                     }
                 }
             }
-        }
-
-        private SKBitmap Crop(SKBitmap original, ResizeParams resizeParams)
-        {
-            var cropSides = 0;
-            var cropTopBottom = 0;
-
-            // calculate amount of pixels to remove from sides and top/bottom
-            if ((float)resizeParams.w / original.Width < resizeParams.h / original.Height) // crop sides
-                cropSides = original.Width - (int)Math.Round((float)original.Height / resizeParams.h * resizeParams.w);
-            else
-                cropTopBottom = original.Height - (int)Math.Round((float)original.Width / resizeParams.w * resizeParams.h);
-
-            // setup crop rect
-            var cropRect = new SKRectI
-            {
-                Left = cropSides / 2,
-                Top = cropTopBottom / 2,
-                Right = original.Width - cropSides + cropSides / 2,
-                Bottom = original.Height - cropTopBottom + cropTopBottom / 2
-            };
-
-            // crop
-            SKBitmap bitmap = new SKBitmap(cropRect.Width, cropRect.Height);
-            original.ExtractSubset(bitmap, cropRect);
-            original.Dispose();
-
-            return bitmap;
-        }
-
-        private SKBitmap Padding(SKBitmap original, int paddedWidth, int paddedHeight, bool isOpaque)
-        {
-            // setup new bitmap and optionally clear
-            var bitmap = new SKBitmap(paddedWidth, paddedHeight, isOpaque);
-            var canvas = new SKCanvas(bitmap);
-            if (isOpaque)
-                canvas.Clear(new SKColor(255, 255, 255)); // we could make this color a resizeParam
-            else
-                canvas.Clear(SKColor.Empty);
-
-            // find co-ords to draw original at
-            var left = original.Width < paddedWidth ? (paddedWidth - original.Width) / 2 : 0;
-            var top = original.Height < paddedHeight ? (paddedHeight - original.Height) / 2 : 0;
-
-            var drawRect = new SKRectI
-            {
-                Left = left,
-                Top = top,
-                Right = original.Width + left,
-                Bottom = original.Height + top
-            };
-
-            // draw original onto padded version
-            canvas.DrawBitmap(original, drawRect);
-            canvas.Flush();
-
-            canvas.Dispose();
-            original.Dispose();
-
-            return bitmap;
         }
 
         private bool IsImagePath(PathString path)
@@ -407,6 +287,16 @@ namespace ImageResizer.AspNetCore
             // only apply mode if it's a valid mode and both w and h are specified
             if (h != 0 && w != 0 && query.ContainsKey("mode") && ResizeParams.modes.Any(m => query["mode"] == m))
                 resizeParams.mode = query["mode"];
+
+            if (query.ContainsKey("wmtext"))
+                resizeParams.wmtext = short.Parse(query["wmtext"]);
+            else
+                resizeParams.wmtext = 0;
+
+            if (query.ContainsKey("wmimage"))
+                resizeParams.wmimage = short.Parse(query["wmimage"]);
+            else
+                resizeParams.wmimage = 0;
 
             return resizeParams;
         }
