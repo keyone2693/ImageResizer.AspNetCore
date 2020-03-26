@@ -17,7 +17,7 @@
 ### Before posting new issues: [Test samples](https://github.com/keyone2693/ImageResizer.AspNetCore/tree/master/TestExample)
 
 
-#### Current version: 1.7.x [Stable] and 1.8.0-beta[UnderDevelopment]
+#### Current version: 1.8.x [Stable] and 1.9.0-beta[UnderDevelopment]
 In this version:
 all main functionality working
 except for disk cache and watermark which will be added soon
