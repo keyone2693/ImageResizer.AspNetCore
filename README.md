@@ -34,6 +34,12 @@ or use this in package manager console
 ```c#
 Install-Package ImageResizer.AspNetCore
 ```
+
+
+# Note 
+
+you should Create ImageResizerJson.json in the "wwwroot" folder 
+
 # Wiki
 
 for using this awesome library, you only need to add two things
