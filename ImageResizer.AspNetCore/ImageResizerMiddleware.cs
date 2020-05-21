@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 using ImageResizer.AspNetCore.Funcs;
 using Newtonsoft.Json;
 using ImageResizer.AspNetCore.Models;
-using System.Threading;
 
 namespace ImageResizer.AspNetCore
 {
@@ -46,6 +45,9 @@ namespace ImageResizer.AspNetCore
         {
             var path = context.Request.Path;
 
+            //use ContentRootPath in case WebRootPath is null
+            var rootPath = _env.WebRootPath ?? _env.ContentRootPath;
+
             // hand to next middleware if we are not dealing with an image
             if (context.Request.Query.Count == 0 || !IsImagePath(path))
             {
@@ -60,7 +62,7 @@ namespace ImageResizer.AspNetCore
                 await _req.Invoke(context);
                 return;
             }
-            var imageResizerJsonPath = Path.Combine(_env.WebRootPath, "ImageResizerJson.json");
+            var imageResizerJsonPath = Path.Combine(rootPath, "ImageResizerJson.json");
 
             var watermarks = new WatermarksModel();
 
@@ -92,7 +94,7 @@ namespace ImageResizer.AspNetCore
 
             // get the image location on disk
             var imagePath = Path.Combine(
-                "",//_env.WebRootPath,
+                _env.WebRootPath,
                 path.Value.Replace('/', Path.DirectorySeparatorChar).TrimStart(Path.DirectorySeparatorChar));
 
             // check file lastwrite

@@ -1,8 +1,6 @@
 ﻿using ImageResizer.AspNetCore.Helpers;
 using ImageResizer.AspNetCore.Models;
 using SkiaSharp;
-using System;
-using System.IO;
 
 namespace ImageResizer.AspNetCore.Funcs
 {

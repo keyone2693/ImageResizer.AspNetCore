@@ -1,5 +1,4 @@
-# ImageResizer.AspNetCore
-Under the way :)
+
 # ImageResizer.AspNetCore
 
 ## Development 
@@ -18,15 +17,16 @@ Under the way :)
 ### Before posting new issues: [Test samples](https://github.com/keyone2693/ImageResizer.AspNetCore/tree/master/TestExample)
 
 
-#### Current version: 1.7.x [Stable]
+#### Current version: 1.8.x [Stable] and 1.9.0-beta[UnderDevelopment]
 In this version:
 all main functionality working
 except for disk cache and watermark which will be added soon
+the watermark as a text just added but need some bug fix
 
 ## Overview
 
 ## it's for DotNetCore only
-aspnetcore 2.2 +
+aspnetcore 3.1 +
 
 ## Easy to install
 Use the library as dll, reference from [nuget](https://www.nuget.org/packages/ImageResizer.AspNetCore/)
@@ -34,6 +34,12 @@ or use this in package manager console
 ```c#
 Install-Package ImageResizer.AspNetCore
 ```
+
+
+# Note 
+
+you should Create ImageResizerJson.json in the "wwwroot" folder 
+
 # Wiki
 
 for using this awesome library, you only need to add two things
