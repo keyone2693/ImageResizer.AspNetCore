@@ -26,7 +26,7 @@ the watermark as a text just added but need some bug fix
 ## Overview
 
 ## it's for DotNetCore only
-aspnetcore 3.1 +
+aspnetcore 2.0 +
 
 ## Easy to install
 Use the library as dll, reference from [nuget](https://www.nuget.org/packages/ImageResizer.AspNetCore/)
