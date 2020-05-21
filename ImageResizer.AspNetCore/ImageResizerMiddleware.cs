@@ -45,8 +45,8 @@ namespace ImageResizer.AspNetCore
         {
             var path = context.Request.Path;
 
-            //use ContentRootPath in case WebRootPath is null
-            var rootPath = _env.WebRootPath ?? _env.ContentRootPath;
+            var rootPath = _env.WebRootPath ?? _env.ContentRootPath; //use web or content root path
+
 
             // hand to next middleware if we are not dealing with an image
             if (context.Request.Query.Count == 0 || !IsImagePath(path))
@@ -64,37 +64,39 @@ namespace ImageResizer.AspNetCore
             }
             var imageResizerJsonPath = Path.Combine(rootPath, "ImageResizerJson.json");
 
-            var watermarks = new WatermarksModel();
-
-            using (StreamReader r = new StreamReader(imageResizerJsonPath))
+            // if json file doesn't exist we don't work with watermark
+            if (File.Exists(imageResizerJsonPath))
             {
-                string json = r.ReadToEnd();
+                var watermarks = new WatermarksModel();
 
-                watermarks = JsonConvert.DeserializeObject<WatermarksModel>(json);
-
-            }
-            if (resizeParams.wmtext != 0)
-            {
-                if (watermarks.WatermarkTextList.Any())
+                using (StreamReader r = new StreamReader(imageResizerJsonPath))
                 {
-                    watermarkText = watermarks.WatermarkTextList.FirstOrDefault(p => p.Key == resizeParams.wmtext);
+                    string json = r.ReadToEnd();
+                    watermarks = JsonConvert.DeserializeObject<WatermarksModel>(json);
+                }
+
+                if (resizeParams.wmtext != 0)
+                {
+                    if (watermarks.WatermarkTextList.Any())
+                    {
+                        watermarkText = watermarks.WatermarkTextList.FirstOrDefault(p => p.Key == resizeParams.wmtext);
+                    }
+                }
+                if (resizeParams.wmimage != 0)
+                {
+                    if (watermarks.WatermarkImageList.Any())
+                    {
+                        watermarkImage = watermarks.WatermarkImageList.FirstOrDefault(p => p.Key == resizeParams.wmimage);
+                    }
                 }
             }
-            if (resizeParams.wmimage != 0)
-            {
-                if (watermarks.WatermarkImageList.Any())
-                {
-                    watermarkImage = watermarks.WatermarkImageList.FirstOrDefault(p => p.Key == resizeParams.wmimage);
-                }
-            }
-
 
             // if we got this far, resize it
             _logger.LogInformation($"Resizing {path.Value} with params {resizeParams}");
 
             // get the image location on disk
             var imagePath = Path.Combine(
-                _env.WebRootPath,
+                rootPath.Replace("\\wwwroot", ""),
                 path.Value.Replace('/', Path.DirectorySeparatorChar).TrimStart(Path.DirectorySeparatorChar));
 
             // check file lastwrite
