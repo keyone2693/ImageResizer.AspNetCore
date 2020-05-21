@@ -36,9 +36,6 @@ Install-Package ImageResizer.AspNetCore
 ```
 
 
-# Note 
-
-you should Create ImageResizerJson.json in the "wwwroot" folder 
 
 # Wiki
 
