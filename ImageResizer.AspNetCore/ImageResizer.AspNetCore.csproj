@@ -25,7 +25,8 @@ Start without watermark json</PackageReleaseNotes>
     <Product>ImageResizer.AspNetCore</Product>
     <AssemblyName>ImageResizer.AspNetCore</AssemblyName>
     <RootNamespace>ImageResizer.AspNetCore</RootNamespace>
-    <AssemblyVersion>1.9.0.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
