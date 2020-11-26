@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using ImageResizer.AspNetCore.Funcs;
 using Newtonsoft.Json;
 using ImageResizer.AspNetCore.Models;
+using Microsoft.Extensions.FileProviders;
 
 namespace ImageResizer.AspNetCore
 {
@@ -40,8 +41,7 @@ namespace ImageResizer.AspNetCore
             _memoryCache = memoryCache;
 
         }
-
-        public async Task Invoke(HttpContext context)
+        public async Task InvokeAsync(HttpContext context)
         {
             var path = context.Request.Path;
 
@@ -93,11 +93,12 @@ namespace ImageResizer.AspNetCore
 
             // if we got this far, resize it
             _logger.LogInformation($"Resizing {path.Value} with params {resizeParams}");
-
-            // get the image location on disk
-            var imagePath = Path.Combine(
-                rootPath.Replace("\\wwwroot", ""),
-                path.Value.Replace('/', Path.DirectorySeparatorChar).TrimStart(Path.DirectorySeparatorChar));
+            var provider = new PhysicalFileProvider(rootPath);
+            var imagePath = provider.GetFileInfo(path.Value).PhysicalPath; 
+            //// get the image location on disk
+            //var imagePath = Path.Combine(
+            //    rootPath.Replace("\\wwwroot", ""),
+            //    path.Value.Replace('/', Path.DirectorySeparatorChar).TrimStart(Path.DirectorySeparatorChar));
 
             // check file lastwrite
             var lastWriteTimeUtc = File.GetLastWriteTimeUtc(imagePath);
