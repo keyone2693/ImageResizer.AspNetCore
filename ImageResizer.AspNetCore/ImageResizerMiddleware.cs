@@ -21,7 +21,7 @@ namespace ImageResizer.AspNetCore
 
         private readonly RequestDelegate _req;
         private readonly ILogger<ImageResizerMiddleware> _logger;
-        private readonly IHostingEnvironment _env;
+        private readonly IWebHostEnvironment _env;
         private readonly IMemoryCache _memoryCache;
         private WatermarkTextModel watermarkText;
         private WatermarkImageModel watermarkImage;
@@ -32,7 +32,7 @@ namespace ImageResizer.AspNetCore
             ".jpeg"
         };
 
-        public ImageResizerMiddleware(RequestDelegate req, IHostingEnvironment env, ILogger<ImageResizerMiddleware> logger, IMemoryCache memoryCache)
+        public ImageResizerMiddleware(RequestDelegate req, IWebHostEnvironment env, ILogger<ImageResizerMiddleware> logger, IMemoryCache memoryCache)
         {
             _req = req;
             _env = env;
