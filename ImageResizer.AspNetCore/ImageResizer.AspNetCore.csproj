@@ -4,7 +4,7 @@
     <OutputType>Library</OutputType>
     <TargetFrameworks>net5.0;netcoreapp3.1;</TargetFrameworks>
     <ApplicationIcon>ImageResizing.ico</ApplicationIcon>
-    <Version>1.9.0</Version>
+    <Version>2.0.0</Version>
     <Authors>Keyvan Abdollahzadeh</Authors>
     <Description>ImageResizer.AspNetCore is the image server for ASP.NET CORE. It can be dropped into existing apps and works, enable fast and adaptive websites, and improve your sales by reducing page load time.
 
