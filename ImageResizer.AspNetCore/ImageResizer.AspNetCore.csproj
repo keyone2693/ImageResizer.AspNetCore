@@ -2,41 +2,51 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFrameworks>net5.0;netcoreapp3.1;</TargetFrameworks>
     <ApplicationIcon>ImageResizing.ico</ApplicationIcon>
-    <Version>1.9.0</Version>
-    <Authors>Keyvan Abdollahzadeh</Authors>
-    <Description>ImageResizer.AspNetCore is the image server for ASP.NET CORE. It can be dropped into existing apps and works, enable fast and adaptive websites, and improve your sales by reducing page load time.
+    <Version>2.0.2</Version>
+    <Authors>Cornel Hattingh</Authors>
+    <Description>ImageResizer.Core5 is the image server for ASP.NET CORE. It can be dropped into existing apps and works, enable fast and adaptive websites, and improve your sales by reducing page load time.
 
 it can do:
-Resize, Crop, Padding, Max, Stretch, Change Quality, Change Format, ...
-
-Enjoy :)</Description>
-    <PackageReleaseNotes>bug fixed
-Start without watermark json</PackageReleaseNotes>
+Resize, Crop, Padding, Max, Stretch, Change Quality, Change Format
+Forked from: https://github.com/keyone2693/ImageResizer.AspNetCore
+</Description>
+    <PackageReleaseNotes>Target Net 5.0
+Fix Middleware static file lookup path</PackageReleaseNotes>
     <StartupObject />
-    <PackageId>ImageResizer.AspNetCore</PackageId>
-    <PackageProjectUrl>https://github.com/keyone2693/ImageResizer.AspNetCore</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/keyone2693/ImageResizer.AspNetCore</RepositoryUrl>
+    <PackageId>Core5.ImageResizer</PackageId>
+    <PackageProjectUrl>https://github.com/cornelha/ImageResizer.AspNetCore</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/cornelha/ImageResizer.AspNetCore</RepositoryUrl>
     <RepositoryType>public</RepositoryType>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>ImageResizing.png</PackageIcon>
     <PackageIconUrl />
-    <Product>ImageResizer.AspNetCore</Product>
+    <Product>Core5.ImageResizer</Product>
     <AssemblyName>ImageResizer.AspNetCore</AssemblyName>
     <RootNamespace>ImageResizer.AspNetCore</RootNamespace>
-    <AssemblyVersion>1.9.0.0</AssemblyVersion>
+    <AssemblyVersion>2.0.2.0</AssemblyVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <FileVersion>2.0.2.0</FileVersion>
   </PropertyGroup>
+  <PropertyGroup>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="3.1.4" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.4" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.4" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.3" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <PackageReference Include="SkiaSharp" Version="2.80.2" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
