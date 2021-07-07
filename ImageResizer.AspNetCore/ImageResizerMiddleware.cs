@@ -18,12 +18,11 @@ namespace ImageResizer.AspNetCore
 {
     public class ImageResizerMiddleware
     {
-
-
         private readonly RequestDelegate _req;
         private readonly ILogger<ImageResizerMiddleware> _logger;
         private readonly IWebHostEnvironment _env;
         private readonly IMemoryCache _memoryCache;
+        private readonly IFileProvider _fileProvider;
         private WatermarkTextModel watermarkText;
         private WatermarkImageModel watermarkImage;
 
@@ -33,13 +32,18 @@ namespace ImageResizer.AspNetCore
             ".jpeg"
         };
 
-        public ImageResizerMiddleware(RequestDelegate req, IWebHostEnvironment env, ILogger<ImageResizerMiddleware> logger, IMemoryCache memoryCache)
+        public ImageResizerMiddleware(
+            RequestDelegate req, 
+            IWebHostEnvironment env, 
+            ILogger<ImageResizerMiddleware> logger, 
+            IMemoryCache memoryCache,
+            IFileProvider fileProvider)
         {
             _req = req;
             _env = env;
             _logger = logger;
             _memoryCache = memoryCache;
-
+            _fileProvider = fileProvider;
         }
         public async Task InvokeAsync(HttpContext context)
         {
@@ -93,8 +97,7 @@ namespace ImageResizer.AspNetCore
 
             // if we got this far, resize it
             _logger.LogInformation($"Resizing {path.Value} with params {resizeParams}");
-            var provider = new PhysicalFileProvider(rootPath);
-            var imagePath = provider.GetFileInfo(path.Value).PhysicalPath; 
+            var imagePath = _fileProvider.GetFileInfo(path.Value).PhysicalPath; 
             //// get the image location on disk
             //var imagePath = Path.Combine(
             //    rootPath.Replace("\\wwwroot", ""),
