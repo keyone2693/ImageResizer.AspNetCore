@@ -27,7 +27,7 @@ namespace TestExample
         public IConfigurationRoot Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IFileProvider>(_ => new PhysicalFileProvider(/*_env.WebRootPath ??*/ _env.ContentRootPath));
+            services.AddSingleton<IFileProvider>(_ => new PhysicalFileProvider(_env.WebRootPath ?? _env.ContentRootPath));
             services.AddControllersWithViews();
             //AddImageResizer
             services.AddImageResizer();
