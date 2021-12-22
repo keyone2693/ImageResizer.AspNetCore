@@ -67,7 +67,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 ```
 and you can use it in your client-side(html,css,ts,...) just like below:
 
-Simple Is That Enjoy :))
+Simple As That Enjoy :))
 
 ```html
 <img src="~/images/mardinCity.jpg?w=200" />
