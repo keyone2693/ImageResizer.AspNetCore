@@ -2,38 +2,38 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>net5.0;netcoreapp3.1;</TargetFrameworks>
+    <TargetFrameworks>net6.0;netcoreapp3.1;</TargetFrameworks>
     <ApplicationIcon>ImageResizing.ico</ApplicationIcon>
-    <Version>2.0.2</Version>
+    <Version>2.0.3</Version>
     <Authors>Cornel Hattingh</Authors>
-    <Description>ImageResizer.Core5 is the image server for ASP.NET CORE. It can be dropped into existing apps and works, enable fast and adaptive websites, and improve your sales by reducing page load time.
+    <Description>ImageResizer.Core6 is the image server for ASP.NET CORE. It can be dropped into existing apps and works, enable fast and adaptive websites, and improve your sales by reducing page load time.
 
 it can do:
 Resize, Crop, Padding, Max, Stretch, Change Quality, Change Format
 Forked from: https://github.com/keyone2693/ImageResizer.AspNetCore
 </Description>
-    <PackageReleaseNotes>Target Net 5.0
+    <PackageReleaseNotes>Target Net 6.0
 Fix Middleware static file lookup path</PackageReleaseNotes>
     <StartupObject />
-    <PackageId>Core5.ImageResizer</PackageId>
+    <PackageId>Core.ImageResizer</PackageId>
     <PackageProjectUrl>https://github.com/cornelha/ImageResizer.AspNetCore</PackageProjectUrl>
     <RepositoryUrl>https://github.com/cornelha/ImageResizer.AspNetCore</RepositoryUrl>
     <RepositoryType>public</RepositoryType>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>ImageResizing.png</PackageIcon>
     <PackageIconUrl />
-    <Product>Core5.ImageResizer</Product>
+    <Product>Core.ImageResizer</Product>
     <AssemblyName>ImageResizer.AspNetCore</AssemblyName>
     <RootNamespace>ImageResizer.AspNetCore</RootNamespace>
-    <AssemblyVersion>2.0.2.0</AssemblyVersion>
+    <AssemblyVersion>2.0.3.0</AssemblyVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <FileVersion>2.0.2.0</FileVersion>
+    <FileVersion>2.0.3.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
@@ -41,12 +41,12 @@ Fix Middleware static file lookup path</PackageReleaseNotes>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="SkiaSharp" Version="2.80.2" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    <PackageReference Include="SkiaSharp" Version="2.88.2" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
