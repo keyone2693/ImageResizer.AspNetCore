@@ -12,7 +12,7 @@
 [![GitHub license](https://img.shields.io/github/license/keyone2693/ImageResizer.AspNetCore.svg?maxAge=25920?style=plastic)](https://github.com/keyone2693/ImageResizer.AspNetCore/blob/master/LICENSE)
 
 
-### You can see the DEMO here: [Demo](http://imageresizer.aspnetcore.keyone2693.ir/)
+### You can see the DEMO here: [Demo](http://imageresizer.keyone2693.ir/)
 
 ### Before posting new issues: [Test samples](https://github.com/keyone2693/ImageResizer.AspNetCore/tree/master/TestExample)
 
