@@ -46,6 +46,18 @@ add this line of code to your Startup.cs
 
 
 ```c#
+public void ConfigureServices(IServiceCollection services)
+{
+  services.AddSingleton<IFileProvider>(_ => new PhysicalFileProvider(_env.WebRootPath ?? _env.ContentRootPath));
+  //...
+  services.AddImageResizer();
+  //...
+}
+```
+
+you may need this:
+
+```c#
  private readonly IWebHostEnvironment _env;
  public Startup(IWebHostEnvironment env)
  {
@@ -56,13 +68,6 @@ add this line of code to your Startup.cs
        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
        .AddEnvironmentVariables();
        Configuration = builder.Build();
-}
-public void ConfigureServices(IServiceCollection services)
-{
-  services.AddSingleton<IFileProvider>(_ => new PhysicalFileProvider(_env.WebRootPath ?? _env.ContentRootPath));
-  //...
-  services.AddImageResizer();
-  //...
 }
 ```
 
