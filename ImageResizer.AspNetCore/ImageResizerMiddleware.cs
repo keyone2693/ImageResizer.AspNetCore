@@ -132,8 +132,7 @@ namespace ImageResizer.AspNetCore
             }
 
             SKData imageData;
-            byte[] imageBytes;
-           bool isCached = _memoryCache.TryGetValue<byte[]>(cacheKey, out imageBytes);
+            bool isCached = _memoryCache.TryGetValue(cacheKey, out byte[]  imageBytes);
             if (isCached)
             {
                 _logger.LogInformation("Serving from cache");
@@ -210,7 +209,7 @@ namespace ImageResizer.AspNetCore
             imageData = resizedImage.Encode(encodeFormat, resizeParams.quality);
 
             // cache the result
-            _memoryCache.Set<byte[]>(cacheKey, imageData.ToArray());
+            _memoryCache.Set(cacheKey, imageData.ToArray());
 
             // cleanup
             resizedImage.Dispose();
