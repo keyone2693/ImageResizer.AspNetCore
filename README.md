@@ -48,6 +48,7 @@ add this line of code to your Startup.cs
 ```c#
 public void ConfigureServices(IServiceCollection services)
 {
+  services.AddSingleton<IFileProvider>(_ => new PhysicalFileProvider(_env.WebRootPath ?? _env.ContentRootPath));
   //...
   services.AddImageResizer();
   //...
