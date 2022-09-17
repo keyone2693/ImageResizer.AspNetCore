@@ -12,12 +12,12 @@
 [![GitHub license](https://img.shields.io/github/license/keyone2693/ImageResizer.AspNetCore.svg?maxAge=25920?style=plastic)](https://github.com/keyone2693/ImageResizer.AspNetCore/blob/master/LICENSE)
 
 
-### You can see the DEMO here: [Demo](http://imageresizer.aspnetcore.keyone2693.ir/)
+### You can see the DEMO here: [Demo](http://imageresizer.keyone2693.ir/)
 
 ### Before posting new issues: [Test samples](https://github.com/keyone2693/ImageResizer.AspNetCore/tree/master/TestExample)
 
 
-#### Current version: 1.9.x [Stable] and 2.0.x-beta[UnderDevelopment]
+#### Current version: 2.0.x [Stable]
 In this version:
 all main functionality working
 except for disk cache and watermark which will be added soon
@@ -61,10 +61,27 @@ public Startup(IWebHostEnvironment env)
 
 public void ConfigureServices(IServiceCollection services)
 {
+  services.AddSingleton<IFileProvider>(_ => new PhysicalFileProvider(_env.WebRootPath ?? _env.ContentRootPath));
   //...
   services.AddSingleton<IFileProvider>(_ => new PhysicalFileProvider(_env.WebRootPath ?? _env.ContentRootPath));
   services.AddImageResizer();
   //...
+}
+```
+
+you may need this:
+
+```c#
+ private readonly IWebHostEnvironment _env;
+ public Startup(IWebHostEnvironment env)
+ {
+     _env = env;
+     var builder = new ConfigurationBuilder()
+       .SetBasePath(env.ContentRootPath)
+       .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+       .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+       .AddEnvironmentVariables();
+       Configuration = builder.Build();
 }
 ```
 
