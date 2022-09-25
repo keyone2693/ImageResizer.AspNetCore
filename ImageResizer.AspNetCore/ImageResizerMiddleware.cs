@@ -132,113 +132,115 @@ namespace ImageResizer.AspNetCore
             }
 
             SKData imageData;
-            bool isCached = _memoryCache.TryGetValue(cacheKey, out byte[]  imageBytes);
+            bool isCached = _memoryCache.TryGetValue(cacheKey, out byte[] imageBytes);
             if (isCached)
             {
                 _logger.LogInformation("Serving from cache");
                 return SKData.CreateCopy(imageBytes);
             }
 
-            SKEncodedOrigin origin; // this represents the EXIF orientation
-            var bitmap = LoadBitmap(File.OpenRead(imagePath), out origin); // always load as 32bit (to overcome issues with indexed color)
-
-            if (resizeParams.w == 0)
+            using (var fs = File.OpenRead(imagePath))
             {
-                resizeParams.w = bitmap.Width;
+                // origin represents the EXIF orientation
+                var bitmap = LoadBitmap(fs, out SKEncodedOrigin origin); // always load as 32bit (to overcome issues with indexed color)
+
+                if (resizeParams.w == 0)
+                {
+                    resizeParams.w = bitmap.Width;
+                }
+                if (resizeParams.h == 0)
+                {
+                    resizeParams.h = bitmap.Height;
+                }
+
+                // if autorotate = true, and origin isn't correct for the rotation, rotate it
+                if (resizeParams.autorotate && origin != SKEncodedOrigin.TopLeft)
+                    bitmap = RotateAndFlip.RotateAndFlipImage(bitmap, origin);
+
+                // if either w or h is 0, set it based on ratio of original image
+                if (resizeParams.h == 0)
+                    resizeParams.h = (int)Math.Round(bitmap.Height * (float)resizeParams.w / bitmap.Width);
+                else if (resizeParams.w == 0)
+                    resizeParams.w = (int)Math.Round(bitmap.Width * (float)resizeParams.h / bitmap.Height);
+
+                // if we need to crop, crop the original before resizing
+                if (resizeParams.mode == "crop")
+                    bitmap = Crop.CropImage(bitmap, resizeParams);
+
+                // store padded height and width
+                var paddedHeight = resizeParams.h;
+                var paddedWidth = resizeParams.w;
+
+                // if we need to pad, or max, set the height or width according to ratio
+                if (resizeParams.mode == "pad" || resizeParams.mode == "max")
+                {
+                    var bitmapRatio = (float)bitmap.Width / bitmap.Height;
+                    var resizeRatio = (float)resizeParams.w / resizeParams.h;
+
+                    if (bitmapRatio > resizeRatio) // original is more "landscape"
+                        resizeParams.h = (int)Math.Round(bitmap.Height * ((float)resizeParams.w / bitmap.Width));
+                    else
+                        resizeParams.w = (int)Math.Round(bitmap.Width * ((float)resizeParams.h / bitmap.Height));
+                }
+
+                // resize
+                var resizedImageInfo = new SKImageInfo(resizeParams.w, resizeParams.h, SKImageInfo.PlatformColorType, bitmap.AlphaType);
+                var resizedBitmap = bitmap.Resize(resizedImageInfo, SKFilterQuality.High);
+
+                // optionally pad
+                if (resizeParams.mode == "pad")
+                    resizedBitmap = Padding.PaddingImage(resizedBitmap, paddedWidth, paddedHeight, resizeParams.format != "png");
+
+                // watermarkText
+                if (resizeParams.wmtext != 0)
+                {
+                    if (watermarkText != null)
+                        resizedBitmap = Watermark.WatermarkText(resizedBitmap, resizeParams, watermarkText);
+                }
+                // watermarkImage
+                if (resizeParams.wmimage != 0)
+                {
+                    if (watermarkImage != null)
+                        resizedBitmap = Watermark.WatermarkImage(resizedBitmap, resizeParams, watermarkImage);
+                }
+
+
+                // encode
+                var resizedImage = SKImage.FromBitmap(resizedBitmap);
+                var encodeFormat = resizeParams.format == "png" ? SKEncodedImageFormat.Png : SKEncodedImageFormat.Jpeg;
+                imageData = resizedImage.Encode(encodeFormat, resizeParams.quality);
+
+                // cache the result
+                _memoryCache.Set(cacheKey, imageData.ToArray());
+
+                // cleanup
+                resizedImage.Dispose();
+                bitmap.Dispose();
+                resizedBitmap.Dispose();
+
+                return imageData;
             }
-            if (resizeParams.h == 0)
-            {
-                resizeParams.h = bitmap.Height;
-            }
-
-            // if autorotate = true, and origin isn't correct for the rotation, rotate it
-            if (resizeParams.autorotate && origin != SKEncodedOrigin.TopLeft)
-                bitmap = RotateAndFlip.RotateAndFlipImage(bitmap, origin);
-
-            // if either w or h is 0, set it based on ratio of original image
-            if (resizeParams.h == 0)
-                resizeParams.h = (int)Math.Round(bitmap.Height * (float)resizeParams.w / bitmap.Width);
-            else if (resizeParams.w == 0)
-                resizeParams.w = (int)Math.Round(bitmap.Width * (float)resizeParams.h / bitmap.Height);
-
-            // if we need to crop, crop the original before resizing
-            if (resizeParams.mode == "crop")
-                bitmap = Crop.CropImage(bitmap, resizeParams);
-
-            // store padded height and width
-            var paddedHeight = resizeParams.h;
-            var paddedWidth = resizeParams.w;
-
-            // if we need to pad, or max, set the height or width according to ratio
-            if (resizeParams.mode == "pad" || resizeParams.mode == "max")
-            {
-                var bitmapRatio = (float)bitmap.Width / bitmap.Height;
-                var resizeRatio = (float)resizeParams.w / resizeParams.h;
-
-                if (bitmapRatio > resizeRatio) // original is more "landscape"
-                    resizeParams.h = (int)Math.Round(bitmap.Height * ((float)resizeParams.w / bitmap.Width));
-                else
-                    resizeParams.w = (int)Math.Round(bitmap.Width * ((float)resizeParams.h / bitmap.Height));
-            }
-
-            // resize
-            var resizedImageInfo = new SKImageInfo(resizeParams.w, resizeParams.h, SKImageInfo.PlatformColorType, bitmap.AlphaType);
-            var resizedBitmap = bitmap.Resize(resizedImageInfo, SKFilterQuality.High);
-
-            // optionally pad
-            if (resizeParams.mode == "pad")
-                resizedBitmap = Padding.PaddingImage(resizedBitmap, paddedWidth, paddedHeight, resizeParams.format != "png");
-
-            // watermarkText
-            if (resizeParams.wmtext != 0)
-            {
-                if (watermarkText != null)
-                    resizedBitmap = Watermark.WatermarkText(resizedBitmap, resizeParams, watermarkText);
-            }
-            // watermarkImage
-            if (resizeParams.wmimage != 0)
-            {
-                if (watermarkImage != null)
-                    resizedBitmap = Watermark.WatermarkImage(resizedBitmap, resizeParams, watermarkImage);
-            }
-
-
-            // encode
-            var resizedImage = SKImage.FromBitmap(resizedBitmap);
-            var encodeFormat = resizeParams.format == "png" ? SKEncodedImageFormat.Png : SKEncodedImageFormat.Jpeg;
-            imageData = resizedImage.Encode(encodeFormat, resizeParams.quality);
-
-            // cache the result
-            _memoryCache.Set(cacheKey, imageData.ToArray());
-
-            // cleanup
-            resizedImage.Dispose();
-            bitmap.Dispose();
-            resizedBitmap.Dispose();
-
-            return imageData;
         }
 
         private SKBitmap LoadBitmap(Stream stream, out SKEncodedOrigin origin)
         {
             using (var s = new SKManagedStream(stream))
+            using (var skData = SKData.Create(s))
+            using (var codec = SKCodec.Create(skData))
             {
-                using (var codec = SKCodec.Create(s))
-                {
-                    origin = codec.EncodedOrigin;
-                    var info = codec.Info;
-                    var bitmap = new SKBitmap(info.Width, info.Height, SKImageInfo.PlatformColorType, info.IsOpaque ? SKAlphaType.Opaque : SKAlphaType.Premul);
+                origin = codec.EncodedOrigin;
+                var info = codec.Info;
+                var bitmap = new SKBitmap(info.Width, info.Height, SKImageInfo.PlatformColorType, info.IsOpaque ? SKAlphaType.Opaque : SKAlphaType.Premul);
 
-                    IntPtr length;
-                    var result = codec.GetPixels(bitmap.Info, bitmap.GetPixels(out length));
-                    if (result == SKCodecResult.Success || result == SKCodecResult.IncompleteInput)
-                    {
-                        return bitmap;
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Unable to load bitmap from provided data");
-                    }
+                IntPtr length;
+                var result = codec.GetPixels(bitmap.Info, bitmap.GetPixels(out length));
+                if (result == SKCodecResult.Success || result == SKCodecResult.IncompleteInput)
+                {
+                    return bitmap;
+                }
+                else
+                {
+                    throw new ArgumentException("Unable to load bitmap from provided data");
                 }
             }
         }
