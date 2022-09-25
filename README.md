@@ -77,6 +77,7 @@ Then this one :
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 {
   //...
+  // services.AddSingleton<IFileProvider>(_ => new PhysicalFileProvider(_env.WebRootPath ?? _env.ContentRootPath));
   app.UseStaticFiles();
   app.UseImageResizer();
   //...
