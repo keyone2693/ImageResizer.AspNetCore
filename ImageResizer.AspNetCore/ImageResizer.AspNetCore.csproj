@@ -16,14 +16,14 @@ Forked from: https://github.com/keyone2693/ImageResizer.AspNetCore
     <PackageReleaseNotes>Add Multi Targeting
 Fix Middleware static file lookup path</PackageReleaseNotes>
     <StartupObject />
-    <PackageId>Core5.ImageResizer</PackageId>
+    <PackageId>ImageResizer.AspNetCore</PackageId> 
     <PackageProjectUrl>https://github.com/cornelha/ImageResizer.AspNetCore</PackageProjectUrl>
     <RepositoryUrl>https://github.com/cornelha/ImageResizer.AspNetCore</RepositoryUrl>
     <RepositoryType>public</RepositoryType>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>ImageResizing.png</PackageIcon>
     <PackageIconUrl />
-    <Product>Core5.ImageResizer</Product>
+    <Product>ImageResizer.AspNetCore</Product>
     <AssemblyName>ImageResizer.AspNetCore</AssemblyName>
     <RootNamespace>ImageResizer.AspNetCore</RootNamespace>
     <AssemblyVersion>9.0.1.0</AssemblyVersion>
